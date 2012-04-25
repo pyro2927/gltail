@@ -38,7 +38,9 @@ module GlTail
         name = server.shift
         data = server.shift
 
-        if data['source'] && data['source'].downcase == 'local'
+        if data['source'] && data['source'].downcase == 'local' && data['command']
+          src = GlTail::Source::Command.new(@config)
+        elsif data['source'] && data['source'].downcase == 'local'
           src = GlTail::Source::Local.new(@config)
         elsif data['source'] && data['source'].downcase == 'tshark'
           src = GlTail::Source::TShark.new(@config)

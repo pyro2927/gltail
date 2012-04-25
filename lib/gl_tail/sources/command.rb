@@ -1,20 +1,20 @@
 module GlTail
   module Source
 
-    class TShark < Base
+    class Command < Base
       config_attribute :source, "The type of Source"
-
+      config_attribute :command, "The command to run"
+      
         def init
           @lines = []
           Thread.new do #start thread
             begin
-              PTY.spawn( "tshark" ) do |stdin, stdout, pid|
+              puts "Running command #{command}"
+              PTY.spawn( command ) do |stdin, stdout, pid|
                 begin
                   # Do stuff with the output here. Just printing to show it works
                   stdin.each { |line|
-                    if(line.include?('DNS Standard query A'))
-                      @lines.push(line) 
-                    end
+                    @lines.push(line) 
                   }
                 rescue Errno::EIO
                   # puts "Errno:EIO error, but this probably just means " +
@@ -22,7 +22,7 @@ module GlTail
                 end
               end
             rescue PTY::ChildExited
-              puts "Tshark has exited!"
+              puts "Command has exited!"
             end
           end #end thread
         end

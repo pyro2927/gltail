@@ -77,6 +77,13 @@ rescue LoadError
   $PHYSICS = false
 end
 
+begin
+  require 'pty'
+rescue LoadError
+  puts "pty required"
+  exit
+end
+
 $:.unshift(File.dirname(__FILE__)) # this should be obsolete once its a gem
 
 # load our libraries
