@@ -87,9 +87,11 @@ require 'gl_tail/config/yaml_parser'
 
 # sources represent event sources defaults to ssh tail
 # future options: JMS queue, spread.org, local tail, etc
-require 'gl_tail/sources/base'
-require 'gl_tail/sources/ssh'
-require 'gl_tail/sources/local'
+# require 'gl_tail/sources/base'
+# require 'gl_tail/sources/ssh'
+# require 'gl_tail/sources/local'
+# switched to require all sources
+Dir.glob( "#{File.dirname(__FILE__)}/gl_tail/sources/*.rb" ).each {|f| require f }
 
 %w( engine activity block item element parser resolver blob_store font_store).each {|f| require "gl_tail/#{f}" }
 

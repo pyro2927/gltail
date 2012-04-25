@@ -40,7 +40,9 @@ module GlTail
 
         if data['source'] && data['source'].downcase == 'local'
           src = GlTail::Source::Local.new(@config)
-        else 
+        elsif data['source'] && data['source'].downcase == 'tshark'
+          src = GlTail::Source::TShark.new(@config)
+        else
           src = GlTail::Source::SSH.new(@config)
         end
         

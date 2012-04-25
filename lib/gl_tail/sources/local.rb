@@ -15,6 +15,7 @@ module GlTail
         end
       
         def process
+          # tail our local file, and parse each line using the parser defined in our config file
           @log.tail(1) { |line|
             parser.parse(line) 
           }

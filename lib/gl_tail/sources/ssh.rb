@@ -101,7 +101,7 @@ module GlTail
           channel.on_close do |ch|
             ch[:closed] = true
           end
-
+          # after we have read out information from the stream, run our command again
           channel.exec "#{command} #{file}  "
 
           puts "Pushing #{host}\n" if($VRB > 0 || $DBG > 0)
